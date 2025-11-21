@@ -1,0 +1,414 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..f85dd68da045322b717432cf7dc5ec1a9353021d
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,404 @@
++<!DOCTYPE html>
++<html lang="it">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Santini Caffè</title>
++  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
++  <style>
++    :root {
++      --caffè: #4a2c2a;
++      --bronzo: #a67c52;
++      --crema: #f6f0e9;
++      --panna: #fff9f2;
++      --inchiostro: #2c2420;
++    }
++
++    * {
++      box-sizing: border-box;
++      margin: 0;
++      padding: 0;
++    }
++
++    body {
++      font-family: 'Lato', sans-serif;
++      color: var(--inchiostro);
++      background: var(--panna);
++      line-height: 1.6;
++      scroll-behavior: smooth;
++    }
++
++    header {
++      position: fixed;
++      top: 0;
++      left: 0;
++      width: 100%;
++      background: rgba(74, 44, 42, 0.95);
++      color: #fff;
++      z-index: 1000;
++      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
++      backdrop-filter: blur(6px);
++    }
++
++    .nav-container {
++      max-width: 1100px;
++      margin: 0 auto;
++      padding: 14px 24px;
++      display: flex;
++      align-items: center;
++      justify-content: space-between;
++    }
++
++    .logo {
++      font-family: 'Playfair Display', serif;
++      font-size: 1.4rem;
++      letter-spacing: 0.06em;
++    }
++
++    nav a {
++      color: #fff;
++      text-decoration: none;
++      margin-left: 18px;
++      font-weight: 600;
++      letter-spacing: 0.03em;
++      position: relative;
++    }
++
++    nav a::after {
++      content: '';
++      position: absolute;
++      left: 0;
++      bottom: -4px;
++      width: 100%;
++      height: 2px;
++      background: var(--bronzo);
++      transform: scaleX(0);
++      transform-origin: left;
++      transition: transform 0.2s ease;
++    }
++
++    nav a:hover::after,
++    nav a:focus-visible::after {
++      transform: scaleX(1);
++    }
++
++    main {
++      margin-top: 76px;
++    }
++
++    .hero {
++      position: relative;
++      min-height: 70vh;
++      display: flex;
++      align-items: center;
++      color: #fff;
++      background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
++      filter: sepia(22%) saturate(90%);
++    }
++
++    .hero::before {
++      content: '';
++      position: absolute;
++      inset: 0;
++      background: linear-gradient(135deg, rgba(74, 44, 42, 0.7), rgba(166, 124, 82, 0.4));
++      mix-blend-mode: multiply;
++    }
++
++    .hero-content {
++      position: relative;
++      max-width: 1100px;
++      margin: 0 auto;
++      padding: 80px 24px;
++    }
++
++    .hero h1 {
++      font-family: 'Playfair Display', serif;
++      font-size: clamp(2.4rem, 4vw, 3.2rem);
++      margin-bottom: 12px;
++      letter-spacing: 0.05em;
++    }
++
++    .hero p {
++      max-width: 620px;
++      font-size: 1.05rem;
++    }
++
++    section {
++      padding: 72px 24px;
++    }
++
++    .section-inner {
++      max-width: 1100px;
++      margin: 0 auto;
++    }
++
++    .section-title {
++      font-family: 'Playfair Display', serif;
++      font-size: 2rem;
++      color: var(--caffè);
++      margin-bottom: 18px;
++      letter-spacing: 0.04em;
++    }
++
++    .section-subtitle {
++      font-size: 1rem;
++      color: var(--inchiostro);
++      margin-bottom: 18px;
++    }
++
++    .chi-siamo {
++      background: var(--crema);
++      border-top: 1px solid rgba(74, 44, 42, 0.08);
++      border-bottom: 1px solid rgba(74, 44, 42, 0.08);
++    }
++
++    .menu-grid {
++      display: grid;
++      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
++      gap: 24px;
++      margin-top: 12px;
++    }
++
++    .menu-block {
++      background: #fff;
++      border: 1px solid rgba(74, 44, 42, 0.12);
++      border-radius: 12px;
++      padding: 20px;
++      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
++    }
++
++    .menu-block h3 {
++      font-family: 'Playfair Display', serif;
++      color: var(--caffè);
++      margin-bottom: 12px;
++      letter-spacing: 0.02em;
++    }
++
++    .menu-item {
++      display: flex;
++      justify-content: space-between;
++      gap: 12px;
++      border-bottom: 1px dashed rgba(74, 44, 42, 0.15);
++      padding: 10px 0;
++    }
++
++    .menu-item:last-child {
++      border-bottom: none;
++    }
++
++    .menu-text {
++      flex: 1;
++    }
++
++    .menu-title {
++      font-weight: 700;
++      color: var(--inchiostro);
++    }
++
++    .menu-desc {
++      font-size: 0.95rem;
++      color: #5a4a43;
++    }
++
++    .price {
++      color: var(--bronzo);
++      font-weight: 700;
++      white-space: nowrap;
++    }
++
++    .contatti {
++      background: var(--crema);
++      border-top: 1px solid rgba(74, 44, 42, 0.08);
++    }
++
++    .contacts-grid {
++      display: grid;
++      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
++      gap: 24px;
++      align-items: start;
++    }
++
++    .map-placeholder iframe {
++      width: 100%;
++      min-height: 260px;
++      border: 0;
++      filter: grayscale(30%) sepia(15%);
++      border-radius: 10px;
++    }
++
++    footer {
++      background: var(--caffè);
++      color: #f8f1e6;
++      text-align: center;
++      padding: 18px;
++      letter-spacing: 0.02em;
++    }
++
++    @media (max-width: 720px) {
++      nav a {
++        margin-left: 12px;
++      }
++
++      .menu-item {
++        flex-direction: column;
++        align-items: flex-start;
++      }
++
++      .price {
++        margin-top: 6px;
++      }
++    }
++  </style>
++</head>
++<body>
++  <header>
++    <div class="nav-container">
++      <div class="logo">Santini Caffè</div>
++      <nav aria-label="Navigazione principale">
++        <a href="#home">Home</a>
++        <a href="#chi-siamo">Chi Siamo</a>
++        <a href="#menu">Menu</a>
++        <a href="#contatti">Contatti</a>
++      </nav>
++    </div>
++  </header>
++
++  <main>
++    <section id="home" class="hero">
++      <div class="hero-content">
++        <h1>Atmosfere autentiche, gusto italiano</h1>
++        <p>Una miscela di tradizione e convivialità nel cuore della città. Caffè selezionati, dolci artigianali e piatti pensati per accompagnare ogni momento della giornata.</p>
++      </div>
++    </section>
++
++    <section id="chi-siamo" class="chi-siamo">
++      <div class="section-inner">
++        <h2 class="section-title">Chi Siamo</h2>
++        <p class="section-subtitle">"SANTINI" è una catena di bar che si sviluppa in Nord America e che si adatta ad ogni esigenza di vendita al dettaglio. con a disposizione anche un variegato assortimento di pasticceria secca e fresca affiancato, in alcuni punti vendita, da una scelta di veloci pasti a base di pregiati salumi, formaggi o preparati da forno."</p>
++        <p>Condividiamo ogni giorno con i nostri ospiti il piacere di un buon caffè e di un'accoglienza calda. I nostri spazi uniscono il fascino vintage di un bistrot italiano a dettagli contemporanei, creando un ambiente dove fermarsi per una pausa, un incontro o un pranzo leggero.</p>
++      </div>
++    </section>
++
++    <section id="menu">
++      <div class="section-inner">
++        <h2 class="section-title">Il Nostro Menu</h2>
++        <p class="section-subtitle">Una selezione curata per accompagnare ogni momento, dalla prima colazione alla serata.</p>
++
++        <div class="menu-grid">
++          <div class="menu-block">
++            <h3>Colazioni</h3>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Cappuccino Classico</div>
++                <div class="menu-desc">Latte montato cremoso con miscela Santini.</div>
++              </div>
++              <span class="price">€2,50 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Croissant al burro</div>
++                <div class="menu-desc">Sfornato ogni mattina, semplice o farcito.</div>
++              </div>
++              <span class="price">€1,60 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Selezione di tè e tisane</div>
++                <div class="menu-desc">Infusi aromatici da tutto il mondo.</div>
++              </div>
++              <span class="price">€3,00 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++          </div>
++
++          <div class="menu-block">
++            <h3>Pranzi Veloci</h3>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Panino Santini</div>
++                <div class="menu-desc">Pane rustico con prosciutto crudo, stracciatella e rucola.</div>
++              </div>
++              <span class="price">€6,50 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Insalata di stagione</div>
++                <div class="menu-desc">Verdure fresche, cereali e dressing agrumato.</div>
++              </div>
++              <span class="price">€7,20 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Quiche del giorno</div>
++                <div class="menu-desc">Ricetta artigianale con ingredienti del mercato.</div>
++              </div>
++              <span class="price">€5,90 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++          </div>
++
++          <div class="menu-block">
++            <h3>Menu alla Carta / Bar</h3>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Tagliere Degustazione</div>
++                <div class="menu-desc">Selezione di salumi, formaggi e confetture artigianali.</div>
++              </div>
++              <span class="price">€12,00 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Cocktail Signature</div>
++                <div class="menu-desc">Ricette originali ispirate ai grandi classici.</div>
++              </div>
++              <span class="price">€8,50 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++            <div class="menu-item">
++              <div class="menu-text">
++                <div class="menu-title">Dolci della casa</div>
++                <div class="menu-desc">Torte e mignon preparati ogni giorno dal nostro laboratorio.</div>
++              </div>
++              <span class="price">€4,50 <!-- MODIFICA PREZZO QUI --></span>
++            </div>
++          </div>
++        </div>
++      </div>
++    </section>
++
++    <section id="contatti" class="contatti">
++      <div class="section-inner">
++        <h2 class="section-title">Contatti</h2>
++        <div class="contacts-grid">
++          <div>
++            <h3 class="menu-title">Dove Siamo</h3>
++            <p>Via del Caffè 12, 20100 Milano (MI)</p>
++            <p>Tel: +39 02 1234 5678</p>
++            <p>Email: info@santinicaffe.it</p>
++            <h3 class="menu-title" style="margin-top: 18px;">Orari</h3>
++            <p>Lunedì - Venerdì: 7:00 - 20:00</p>
++            <p>Sabato - Domenica: 8:00 - 22:00</p>
++          </div>
++          <div class="map-placeholder">
++            <iframe title="Mappa Santini Caffè" src="https://www.google.com/maps/embed?pb=" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
++          </div>
++        </div>
++      </div>
++    </section>
++  </main>
++
++  <footer>
++    © 2024 Santini Caffè — Spazio riservato per dettagli legali e policy.
++  </footer>
++
++  <script>
++    document.querySelectorAll('nav a').forEach(link => {
++      link.addEventListener('click', event => {
++        const targetId = link.getAttribute('href');
++        if (targetId.startsWith('#')) {
++          event.preventDefault();
++          const target = document.querySelector(targetId);
++          target?.scrollIntoView({ behavior: 'smooth' });
++        }
++      });
++    });
++  </script>
++</body>
++</html>
+ 
+EOF
+)
